@@ -1,6 +1,7 @@
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(MyApp());
@@ -26,6 +27,14 @@ class MyApp extends StatelessWidget {
 }
 
 class MyAppState extends ChangeNotifier {
+  MyAppState() {
+    SharedPreferences.getInstance().then((prefs) {
+      List<String> favoritesStringList = prefs.getStringList('favorites') ?? [];
+      favorites = favoritesStringList.map((e) => WordPair(e.split(' ')[0], e.split(' ')[1])).toList();
+      notifyListeners();
+    });
+  }
+
   var current = WordPair.random();
 
   void getNext() {
@@ -35,13 +44,15 @@ class MyAppState extends ChangeNotifier {
 
   var favorites = <WordPair>[];
 
-  void toggleFavorite() {
+  Future<void> toggleFavorite() async {
     if (favorites.contains(current)) {
       favorites.remove(current);
     } else {
       favorites.add(current);
     }
     notifyListeners();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setStringList('favorites', favorites.map((e) => e.asString).toList());
   }
 }
 
@@ -73,7 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             SafeArea(
               child: NavigationRail(
-                extended: constraints.maxWidth >= 600,  // ← Here.
+                extended: constraints.maxWidth >= 600, // ← Here.
                 destinations: [
                   NavigationRailDestination(
                     icon: Icon(Icons.home),
