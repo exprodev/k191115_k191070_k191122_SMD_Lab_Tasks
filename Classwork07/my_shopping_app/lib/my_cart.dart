@@ -16,7 +16,7 @@ class MyCart extends StatelessWidget {
               final item = cart.items[index];
               return ListTile(
                 title: Text(item.name),
-                subtitle: Text('${item.price}'),
+                subtitle: Text('Rs. ${item.price}'),
                 trailing: IconButton(
                   icon: const Icon(Icons.remove),
                   onPressed: () {
@@ -33,7 +33,7 @@ class MyCart extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text('Total Cost:'),
-                    Text('\$${cart.totalPrice.toStringAsFixed(2)}'),
+                    Text('Rs. ${cart.totalPrice.toStringAsFixed(2)}'),
                   ],
                 ),
               );

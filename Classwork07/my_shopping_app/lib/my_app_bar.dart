@@ -6,7 +6,8 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: const Text('My Shopping App'),
+      title: const Text('Fast Shopping App'),
+      centerTitle: true,
     );
   }
 
