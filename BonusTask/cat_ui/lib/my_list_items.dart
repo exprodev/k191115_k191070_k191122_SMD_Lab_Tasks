@@ -71,8 +71,8 @@ class MyListItems extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                width: 100,
-                height: 100,
+                width: 120,
+                height: 120,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16),
                   image: DecorationImage(
